@@ -49,6 +49,7 @@ const crc8 = (data: Buffer | Array<number>) => {
       }
     }
   }
+  // console.log('0x${byte.toString(16)} 0x${crc.toString(16)}')
 
   return crc;
 };

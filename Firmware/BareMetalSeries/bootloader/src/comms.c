@@ -122,6 +122,7 @@ bool comms_packets_available(void){
 }
 void comms_write(comms_packet_t* packet){
     uart_write((uint8_t*)packet, PACKET_LENGTH);
+    comms_packet_copy(packet, &last_transmitted_packet);
 }
 void comms_read(comms_packet_t* packet){
     comms_packet_copy(&packet_buffer[packet_read_index], packet);
@@ -129,5 +130,5 @@ void comms_read(comms_packet_t* packet){
 }
 
 uint8_t comms_compute_crc(comms_packet_t* packet){
-    return crc8((uint8_t*) &packet, PACKET_LENGTH - PACKET_CRC_BYTES);
+    return crc8((uint8_t*)packet, PACKET_LENGTH - PACKET_CRC_BYTES);
 }
