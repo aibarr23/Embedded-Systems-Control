@@ -17,7 +17,9 @@
 			"sync.h": "c",
 			"ring-buffer.h": "c",
 			"flash_common_all.h": "c",
-			"gpio.h": "c"
+			"gpio.h": "c",
+			"comms.h": "c",
+			"system.h": "c"
 		},
 		"stm32cube-ide-clangd.path": "cube"
 	}
