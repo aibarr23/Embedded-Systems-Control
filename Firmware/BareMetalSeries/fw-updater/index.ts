@@ -25,6 +25,12 @@ const BL_PACKET_NACK_DATA0              = (0x59);
 
 const VECTOR_TABLE_SIZE                 = (0x01B0);
 
+const BOOTLOADER_SIZE                   = (0x8000);
+const FIRMWARE_INFO_SIZE                = (10 * 4);
+
+const FWINFO_VALIDATE_FROM              = (VECTOR_TABLE_SIZE + FIRMWARE_INFO_SIZE);
+const FWINFO_VERSION_OFFSET             = (VECTOR_TABLE_SIZE + (2 * 4));
+const FWINFO_CRC32_OFFSET               = (VECTOR_TABLE_SIZE + (9* 4));
 const FWINFO_DEVICE_ID_OFFSET           = (VECTOR_TABLE_SIZE + (1 * 4));
 const FWINFO_LENGTH_OFFSET              = (VECTOR_TABLE_SIZE + (3 * 4));
 
@@ -269,6 +275,15 @@ const main = async () => {
   const fwImage = await fs.readFile(path.join(process.cwd(), firmwareFilename));
   const fwLength = fwImage.length;
   Logger.success(`Read firmware image (${fwLength} bytes)`);
+
+  
+  Logger.success(`Ingecting into firmware information section`);
+  fwImage.writeUInt32LE(fwLength,FWINFO_LENGTH_OFFSET);
+  fwImage.writeUInt32LE(0x00000001,FWINFO_VERSION_OFFSET);
+
+  const crcValue = crc32(fwImage.slice(FWINFO_VALIDATE_FROM),  fwLength - (VECTOR_TABLE_SIZE + FIRMWARE_INFO_SIZE));
+  Logger.info(`Computed CRC value: 0x${crcValue.toString(16).padStart(8, '0')}`);
+  fwImage.writeUInt32LE(crcValue, FWINFO_CRC32_OFFSET);
 
   Logger.info('Attempting to sync with the bootloader');
   await syncWithBootloader();
