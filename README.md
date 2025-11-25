@@ -18,6 +18,17 @@
 
 ### Embedded C Bare Metal
 
+* [BootLoader](https://github.com/aibarr23/Embedded-Control-Robotics/tree/main/Firmware/BareMetalSeries) STM32 Cortex-M | Firmware
+  * VSCode
+  * AES Firmware CBC_MAC, implementation of cryptographic signed and validate firmware
+  * Bootloader Firmware Update implementation, system teardown and system setup, bootloading or firmware update implementation through a state machine and timeout implementation;
+  * Flash Control, the process of writing to the flash and erasing the main application when updating
+  * Buiding basic UART interface, race condition prevention with a ring buffer, and packet implementation of NACK,ACK, and CRC
+  * Setup VTOR register to properly relocate the interrupt vector table
+  * Linking prevention for Bootloader exeeding max size
+  * Implement padding for the bootloader and the firmware signer with a python script
+
+
 * [Automated Watering System](https://github.com/aibarr23/AWS_Project) Arduino Nano 33 IOT | SAMD21 cortex M0+
   * Arduino IDE
   * Control Servos and Moisture/Humidity Sensors for real time operations
