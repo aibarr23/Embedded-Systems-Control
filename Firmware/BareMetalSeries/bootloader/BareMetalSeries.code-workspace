@@ -19,7 +19,8 @@
 			"flash_common_all.h": "c",
 			"gpio.h": "c",
 			"comms.h": "c",
-			"system.h": "c"
+			"system.h": "c",
+			"firmware-info.h": "c"
 		},
 		"stm32cube-ide-clangd.path": "cube"
 	}

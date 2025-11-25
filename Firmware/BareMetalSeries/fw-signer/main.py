@@ -6,7 +6,7 @@ import subprocess
 import struct
 
 AES_BLOCK_SIZE = 16
-BOOTLOADER_SIZE = 0x8000
+BOOTLOADER_SIZE = 0X8000
 FWINFO_OFFSET = 0x01B0
 SIGNATURE_OFFSET = FWINFO_OFFSET + AES_BLOCK_SIZE
 
@@ -29,7 +29,7 @@ with open(sys.argv[1], "rb") as f:
     fw_image = bytearray(f.read())
     f.close()
 
-version_hex = sys.argv[2]
+version_hex = sys.arbv[2]
 version_value = int(version_hex, base=16)
 struct.pack_into("<I", fw_image, FWINFO_OFFSET + FWINFO_LENGTH_OFFSET, len(fw_image))
 struct.pack_into("<I", fw_image, FWINFO_OFFSET + FWINFO_VERSION_OFFSET, version_value)
@@ -54,8 +54,8 @@ signature_text = ""
 for byte in signature:
     signature_text += f"{byte:02x}"
 
-print(f"Signed firmeware version {version_hex}")
-print(f"key       = {signing_key}")
+print(f"Signed firmware version {version_hex}")
+print(f"key = {signing_key}")
 print(f"signature = {signature_text}")
 
 os.remove(signing_image_filename)
