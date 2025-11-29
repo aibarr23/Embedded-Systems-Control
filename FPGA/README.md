@@ -14,7 +14,7 @@ next
 vvp filename_tb.vvp
 ```
 
-view as logic "analyzer" through gtkwave
+view as logic "analyzer" through gtkwave and open the vcd file
 
 ```shell
 gtkwave
