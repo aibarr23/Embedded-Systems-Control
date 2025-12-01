@@ -33,7 +33,7 @@ entity first_system is
 port (in1 : in std_logic;
 		in2 : in std_logic;
 		out1 : in std_logic;
-		out2 : in std_logic;
+		out2 : in std_logic);
 end first_systems;
 
 architecture dataflow_model of first_system is
