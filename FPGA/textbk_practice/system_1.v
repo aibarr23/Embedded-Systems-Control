@@ -6,6 +6,62 @@ input clk, clr;
 input [3:0] in1,in2,in3,in4;
 output reg [6:0] seg;
 output reg [3:0] an;
+
+wire [6:0] seg1,seg2,seg3,seg4;
+reg [12:0] segclk;
+
+localparam LEFT = 2'b00, MIDLEFT = 2'b01, MIDRIGHT = 2'b10, RIGHT = 2'b11;
+reg [1:0] state = LEFT;
+
+decoder_7seg disp1(in1,seg1);
+decoder_7seg disp2(in2,seg2);
+decoder_7seg disp3(in3,seg3);
+decoder_7seg disp4(in4,seg4);
+
+always @ (posedge clk)
+segclk <= segclk + 1'b1;
+
+always @ (posedge segclk[12] or posedge clr)
+begin
+  if(clr == 1)
+  begin
+    seg <= 7'b0000000;
+    an <= 7'b0000;
+    state <= LEFT;
+  end
+  
+  else
+    begin
+      case (state)
+        LEFT:
+        begin
+          seg <= seg1;
+          an <= 4'b0111;
+          state <= MIDLEFT;
+        end
+        MIDLEFT:
+        begin
+          seg <= seg2;
+          an <= 4'b1011;
+          state <= MIDRIGHT;
+        end 
+        MIDRIGHT:
+        begin
+          seg <= seg3;
+          an <= 4'b1101;
+          state <= RIGHT;
+        end 
+        RIGHT:
+        begin
+          seg <= seg4;
+          an <= 4'b1110;
+          state <= LEFT;
+        end 
+        
+      endcase
+    end
+end
+
 endmodule
 
 module binarytoBCD_0 (
@@ -15,6 +71,19 @@ module binarytoBCD_0 (
     output reg [3:0] thos, huns, tens, ones;
 
     reg [11:0] bcd_data=0;
+
+    always @ (binary)
+    begin
+      bcd_data = binary;
+      thos = bcd_data / 1000;
+      bcd_data = bcd_data % 1000;
+      huns = bcd_data / 100;
+      bcd_data = bcd_data % 100;
+      tens = bcd_data / 10;
+      bcd_data = bcd_data % 10;
+      ones = bcd_data / 10;
+    end
+
 endmodule
 
 module home_alarm2 (
