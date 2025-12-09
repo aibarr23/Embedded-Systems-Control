@@ -14227,3 +14227,12 @@ Emb_Tracing/Binary-Protocols_tracing/qpc/src/qxk/qxk_xthr.c
 Emb_Tracing/Binary-Protocols_tracing/qpc/src/qxk/qxk.c
 ZEPHYR_RTOS/.west/manifest-tmp
 .gitignore
+*.bak
+*.db_info
+*.flock
+*.qsf
+*.qpf
+*.qws
+*.sci
+*.code-workspace
+*.temp
