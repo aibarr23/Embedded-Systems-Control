@@ -14313,3 +14313,4 @@ Firmware/xv6-riscv/user/usertests.c
 Firmware/xv6-riscv/user/usys.pl
 Firmware/xv6-riscv/user/wc.c
 Firmware/xv6-riscv/user/zombie.c
+*manifest-temp
