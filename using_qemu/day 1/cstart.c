@@ -9,13 +9,13 @@ void write(const char* str){
 }
 
 int main(){
-    const char* s ="Hello worl from bare-metal!";
+    const char* s ="Hello world from bare-metal!\n";
     write(s);
     *uart0 = 'A';
     *uart0 = 'B';
     *uart0 = 'C';
     *uart0 = '\n';
-    while(*s != '/0'){
+    while(*s != '\0'){
         *uart0 = *s;
         s++;
     }

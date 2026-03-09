@@ -3,6 +3,13 @@
 refs: https://github.com/umanovskis/baremetal-arm
         Bare-metal programming for ARM E-book
 
+if sd card creation doesn't work due to nbd
+do this before attempting to making sd image 
+else remove tmp folder and try again
+```
+sudo modprobe nbd
+```
+
 ## QEMU
 
 ```
@@ -46,7 +53,13 @@ arm-none-eabi-objcopy -O binary cenv.elf cenv.bin
 ## create u-boot image
 
 ```
-mkimage -A arm -C none -T kernel -a 0x60000000 -e 0x60000000 -d cenv. bin bare-arm.uimg
+../../../u-boot//tools/mkimage -A arm -C none -T kernel -a 0x60000000 -e 0x60000000 -d cenv. bin bare-arm.uimg
+./create-sd.sh sdcard.img bare-arm.uimg
+```
+
+## create sd card image
+
+```
 ./create-sd.sh sdcard.img bare-arm.uimg
 ```
 
