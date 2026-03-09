@@ -1,3 +1,5 @@
+OUTPUT_FORMAT("elf32-littlearm", "elf32-littlearm", "elf32-littlearm")
+OUTPUT_ARCH(arm)
 ENTRY(_Reset)
 
 MEMORY{
@@ -7,9 +9,9 @@ MEMORY{
 
 SECTIONS{
     .text : {
-        startup.o (.vector_table)
-        *(.text)
-        *(.rodata)
+        *(.vector_table)
+        *(.text*)
+        *(.rodata*)
         . = ALIGN(8);
     }  > ROM
     _text_end = .;
@@ -32,7 +34,7 @@ SECTIONS{
     _irq_stack_start = _fiq_stack_end;
     _irq_stack_end = _irq_stack_start + 0x1000; /* 64 KB */
 
-    _stack_start = _irq_stack_start;
+    _stack_start = _irq_stack_end;
     _stack_end = _stack_start + 0x1000; /* 64 KB */
 
     _irq_stack_size = _irq_stack_end - _irq_stack_start;
