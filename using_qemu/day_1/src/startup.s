@@ -5,6 +5,7 @@
 
 .section .vector_table, "x"
 .global _Reset
+.global _start
 _Reset:
     b Reset_Handler
     b Abort_Exception  /* 0x4  Undefined Instruction */
