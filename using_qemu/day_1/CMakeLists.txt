@@ -15,10 +15,10 @@ set(CMAKE_OBJCOPY "arm-none-eabi-objcopy")
 
 file(GLOB LINKSCRIPT "src/linkscript.ld")
 set(ASMFILES src/startup.s)
-set(SRCLIST src/cstart.c)
+set(SRCLIST src/cstart.c src/uart_pl011.c)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostartfiles -nostdlib -g -Wall")
-set(CMAKE_EXE_LINKER_FLAGS "-T ${LINKSCRIPT}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostartfiles -g -Wall")
+set(CMAKE_EXE_LINKER_FLAGS "-T ${LINKSCRIPT} -lgcc -lm")
 
 add_custom_target(u-boot 
             COMMAND make vexpress_ca9x4_config ARCH=arm CROSS_COMPILE=arm-none-eabi- 

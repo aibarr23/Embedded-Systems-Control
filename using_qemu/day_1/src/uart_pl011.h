@@ -18,7 +18,6 @@ typedef volatile struct __attribute__((packed)){
     uint32_t CR;                                /* 0x30 Control register */
 } uart_registers;
     
-    
 typedef enum {
     UART_OK = 0,
     UART_INVALID_ARGUMENT_BAUDRATE, 
@@ -47,6 +46,7 @@ typedef struct {
 #define LCRH_PEN        (1 << 1u)
 #define LCRH_EPS        (1 << 2u)
 #define LCRH_STP2       (1 << 3u) 
+#define LCRH_SPS        (1 << 7u)
 #define CR_UARTEN       (1 << 0u)
 
 #define LCRH_WLEN_5BITS (0u << 5u)

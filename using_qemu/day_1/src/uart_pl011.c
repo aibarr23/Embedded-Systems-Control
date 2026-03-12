@@ -5,6 +5,7 @@ static uart_registers* uart0 = (uart_registers*)0x10009000u;
 static const uint32_t refclock = 24000000u; /*24 MHz */
 
 uart_error uart_init(void){
+
     return UART_OK;
 }
 
@@ -16,7 +17,7 @@ uart_error uart_configure(uart_config* config){
     if (config->stop_bits == 0u || config->stop_bits > 2u){
         return UART_INVALID_ARGUMENT_STOP_BITS;
     }
-    if (config->baudrate < 110u || config0>baudrate > 460800u){
+    if (config->baudrate < 110u || config->baudrate > 460800u){
         return UART_INVALID_ARGUMENT_BAUDRATE;
     }
     /* Disable the UART */
@@ -26,7 +27,7 @@ uart_error uart_configure(uart_config* config){
     uart0->LCRH &= ~LCRH_FEN;
 
     /* Set baudrate */
-    double intpart, factpart;
+    double intpart, fractpart;
     double baudrate_divisor = (double)refclock / (16u * config->baudrate);
     fractpart = modf(baudrate_divisor, &intpart);
 

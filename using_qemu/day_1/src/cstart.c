@@ -7,7 +7,7 @@ char buf[64];
 uint8_t buf_idx = 0u;
 
 static void parse_cmd(void){
-    if(!stncmp("help\r", buf, strlen("help\r"))){
+    if(!strncmp("help\r", buf, strlen("help\r"))){
         uart_write("Just type and see what happens!\n");
     }else if(!strncmp("uname\r", buf, strlen("uname\r"))){
         uart_write("bare-metal arm 06_aurt\n");
@@ -23,9 +23,6 @@ int main(){
     };
     uart_configure(&config);
 
-
-    const char* s ="Hello world from bare-metal!\n";
-    write(s);
     uart_putchar('A') ;
     uart_putchar('B');
     uart_putchar('C');
