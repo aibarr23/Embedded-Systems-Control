@@ -18,6 +18,10 @@ _Reset:
 
 .section .text
 Reset_Handler:
+    /* Change teh vector table base address */
+    ldr r0, =0x60000000
+    mcr p15, #0, r0, c12, c0, #0
+
     /* FIQ stack */
     msr cpsr_c, MODE_FIQ
     ldr r1, =_fiq_stack_start
@@ -71,8 +75,17 @@ bss_loop:
     strlt r0, [r1], #4
     blt bss_loop
 
+    /* Disable supervisor mode interrupts */
+    cpsid if
+
     bl main
     b Abort_Exception
 
 Abort_Exception:
     swi 0xFF
+
+.global IrqHandler
+IrqHandler:
+    ldr r0, =0x10009000
+    ldr r1, [r0]
+    b .

@@ -1,5 +1,6 @@
 #include <math.h>
 #include "uart_pl011.h"
+#include "irq.h"
 
 static uart_registers* uart0 = (uart_registers*)0x10009000u;
 static const uint32_t refclock = 24000000u; /*24 MHz */
@@ -75,6 +76,11 @@ uart_error uart_configure(uart_config* config){
 
     uart0->LCRH |= lcrh;
 
+    uart0->IMSC |= IMSC_RXIM;
+
+    /* Register the interrupt */
+    (void)irq_register_isr(UART0_INTERRUPT, uart_isr);
+
     /* Enable the UART */
     uart0->CR |= CR_UARTEN;
 
@@ -105,4 +111,22 @@ uart_error uart_getchar(char* c){
     }
     
     return UART_OK;
+}
+
+void uart_isr(void){
+    uint32_t status = uart0->MIS;
+    if(status & RX_INTERRUPT){
+        /* Read the recieved character and print it back */
+        char c = uart0->DR & DR_DATA_MASK;
+        uart_putchar(c);
+        if(c == '\r'){
+            uart_write("\n");
+        }
+    }else if (status & BE_INTERRUPT){
+        uart_write("Break error detected!\n");
+        /* Clear the error flag  */
+        uart0->RSRECR = ECR_BE;
+        /* Clear the interrupt */
+        uart0->ICR = BE_INTERRUPT;
+    }
 }

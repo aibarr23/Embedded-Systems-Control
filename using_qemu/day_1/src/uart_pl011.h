@@ -16,6 +16,12 @@ typedef volatile struct __attribute__((packed)){
     uint32_t FBRD;                              /* 0x28 Fractional baudrateregister */
     uint32_t LCRH;                              /* 0x2c Line control register */
     uint32_t CR;                                /* 0x30 Control register */
+    uint32_t IFLS;              /* 0x34 FIFO level select register */
+    uint32_t IMSC;              /* 0x38 Interrupt mask set/clear register */
+    uint32_t RIS;               /* 0x3C Raw interrupt status register */
+    uint32_t MIS;               /* 0x40 Masked interrupt status register */
+    uint32_t ICR;               /* 0x44 Interrupt clear register */
+
 } uart_registers;
     
 typedef enum {
@@ -34,7 +40,11 @@ typedef struct {
     uint32_t    baudrate;
 } uart_config;
 
+#define UART0_INTERRUPT (37u)
+
 #define DR_DATA_MASK    (0xFFu)
+
+#define ECR_BE      (1 << 2u)
 
 #define FR_BUSY         (1 << 3u)
 #define FR_RXFE         (1 << 4u)
@@ -54,9 +64,22 @@ typedef struct {
 #define LCRH_WLEN_7BITS (2u << 5u)
 #define LCRH_WLEN_8BITS (3u << 5u)
 
+#define IFLS_RXFL_1_8   (0u << 5u)
+#define IFLS_TXFL_1_8   (0u << 2u)
+
+#define IMSC_RXIM   (1u << 4u)
+#define IMSC_TXIM   (1u << 5u)
+
+#define RX_INTERRUPT    (1u << 4u)
+#define BE_INTERRUPT    (1u << 9u)
+
+#define ICR_ALL_MASK    (0x7FFu)
+
 uart_error uart_configure(uart_config* config);
 void uart_putchar(char c);
 void uart_write(const char* data);
 uart_error uart_getchar(char* c);
+void uart_isr(void);
+
 
 #endif
