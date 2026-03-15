@@ -1,7 +1,7 @@
 #ifndef CPU_H
 #define CPU_H
 
-#ifndef CPU_A9
+#ifdef CPU_A9
 #include "cpu_a9.h"
 #else
 #error No CPU defined in build parameters!

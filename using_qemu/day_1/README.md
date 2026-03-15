@@ -73,3 +73,9 @@ qemu-system-arm -M vexpress-a9 -m 512M -no-reboot -nographic -monitor telnet:127
 ```
 arm-none-eabi-objdump -h cenv.elf
 ```
+
+## using cmake
+
+```
+cmake -S . -Bbuild
+```

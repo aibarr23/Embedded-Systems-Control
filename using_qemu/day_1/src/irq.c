@@ -16,9 +16,9 @@ void __attribute__((interrupt)) irq_handler(void){
 }
 
 irq_error irq_register_isr(uint16_t irq_number, isr_ptr callback){
-    if(irq_number > MAX_ISR)[
+    if(irq_number > MAX_ISR){
         return IRQ_INVALID_IRQ_ID;
-    ] else if (callbacks[irq_number] != NULL){
+    } else if (callbacks[irq_number] != NULL){
         return IRQ_ALREADY_REGISTERED;
     }else{
         callbacks[irq_number] = callback;

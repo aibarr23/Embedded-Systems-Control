@@ -4,7 +4,7 @@ static gic_distributor_registers* gic_dregs;
 static gic_cpu_interface_registers* gic_ifregs;
 
 void gic_init(void){
-    gic_ifregs = (gic_cpu_interface_registers*)CID_IFACE_BASE;
+    gic_ifregs = (gic_cpu_interface_registers*)GIC_IFACE_BASE;
     gic_dregs = (gic_distributor_registers*)GIC_DIST_BASE;
 
     WRITE32(gic_ifregs->CCPMR, 0xFFFFu); /* Enable all interrupt priorities */
@@ -14,14 +14,14 @@ void gic_init(void){
     WRITE32(gic_dregs->DCTLR, DCTRL_ENABLE); /* Enable the interrupt distributor */
 }
 
-void gic_enable_interrupt(uin8_t number){
+void gic_enable_interrupt(uint16_t number){
     /* Enable the interrupt */
     uint8_t reg = number / 32;
     uint8_t bit = number % 32;
 
     uint32_t reg_val = gic_dregs->DISENABLER[reg];
     reg_val |= (1u << bit);
-    WRITE32(gic_dregs->DISENABLER[reg], reg_val):
+    WRITE32(gic_dregs->DISENABLER[reg], reg_val);
 
     /* Forward interrupt to CPU Interface 0 */
     reg = number / 4;

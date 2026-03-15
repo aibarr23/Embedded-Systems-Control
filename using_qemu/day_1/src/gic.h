@@ -7,7 +7,7 @@
 typedef volatile struct __attribute__((packed)){
     uint32_t DCTLR;             /* 0x0 Distributor Control register */
     const uint32_t DTYPER;      /* 0x4 Controller type register */
-    const uin32_t DIIDR;        /* 0x8 Implementer Identification register */
+    const uint32_t DIIDR;        /* 0x8 Implementer Identification register */
     uint32_t _reserved0[29];    /* 0xC - 0x80; reserved and implementation-defined */
     uint32_t DIGROUPR[32];      /* 0x80 - 0xFC Interrupt goup register (security register from datsheet manual)*/
     uint32_t DISENABLER[32];    /* 0x100 - 0x17C Interrupt set-enable registers */
@@ -42,13 +42,13 @@ typedef volatile struct __attribute__((packed)){
 
 void gic_init(void);
 void gic_enable_interrupt(uint16_t number);
-uint16 gic_acknowledge_interrupt();
+uint16_t gic_acknowledge_interrupt();
 void gic_end_interrupt(uint16_t number);
 
 #define GIC_DIST_BASE   ((cpu_get_periphbase() + GIC_DISTRIBUTOR_OFFSET))
 #define GIC_IFACE_BASE  ((cpu_get_periphbase() + GIC_IFACE_OFFSET))
 
-#define DCTLR_ENABLE    (1u)
+#define DCTRL_ENABLE    (1u)
 #define CCTRL_ENABLE    (1u)
 
 #define CIAR_ID_MASK    (0x3FFu)
