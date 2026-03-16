@@ -7,6 +7,7 @@
 
 #define GIC_IFACE_OFFSET        (0x100u)
 #define GIC_DISTRIBUTOR_OFFSET (0x1000u)
+#define PTIMER_OFFSET           (0x600u)
 
 inline uint32_t cpu_get_periphbase(void);
 inline void cpu_enable_interrupts(void);
