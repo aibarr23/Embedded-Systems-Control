@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "cpu.h"
 
-typedef volatile struct __attribute__((packed)){
+typedef volatile struct __attribute__((packed, aligned(4))){
     uint32_t LR;            /* 0x0 Private timer load register */
     uint32_t CR;            /* 0x4 Private timer counter register */
     uint32_t CTRL;          /* 0x8 Private tiemr control register */

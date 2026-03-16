@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "cpu.h"
 
-typedef volatile struct __attribute__((packed)){
+typedef volatile struct __attribute__((packed, aligned(4))){
     uint32_t DCTLR;             /* 0x0 Distributor Control register */
     const uint32_t DTYPER;      /* 0x4 Controller type register */
     const uint32_t DIIDR;        /* 0x8 Implementer Identification register */
@@ -26,7 +26,7 @@ typedef volatile struct __attribute__((packed)){
      * don't care about them */
 } gic_distributor_registers;
 
-typedef volatile struct __attribute__((packed)){
+typedef volatile struct __attribute__((packed,aligned(4))){
     uint32_t CCTLR;             /* 0x0 CPU Interface control register */
     uint32_t CCPMR;             /* 0x4 Interrupt priority mask reigster */
     uint32_t CBPR;              /* 0x8 Binary point register */
