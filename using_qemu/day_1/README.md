@@ -1,7 +1,7 @@
 # Basic Overview of BareMetal programming for ARM fully emulated with QEMU and U-Boot
 
 refs: https://github.com/umanovskis/baremetal-arm
-        Bare-metal programming for ARM E-book
+        Bare-metal programming for ARM E-book from https://www.embeddedrelated.com/showabstract/355.php
 
 if sd card creation doesn't work due to nbd
 do this before attempting to making sd image 
